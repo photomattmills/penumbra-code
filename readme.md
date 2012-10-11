@@ -6,6 +6,10 @@ Note that I have no association with Mr. Sloan, other than being a fan. I'm buil
 
 ####todo
  
-letter frequency methods for plaintext and cyphertext
+dynamic key generation- create optimal letter frequeny for obscurity by analyzing plaintext
 
-do some actual cryptanalysis- periodicity, fourier analysis, etc.
+rewrite the encryption method to use the above ^^  
+
+make this work on arbitrary text files
+
+do some actual cryptanalysis- periodicity, fourier analysis, whatever I can think of
