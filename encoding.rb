@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # this letter frequency table was generated using lb.txt, wich is the text of cory doctorow's "little brother." I hope he approves of its use for the end of creating a nefarious code. Ideally I'd be using the text of Penumbra, but I don't have a digital copy, and Cory's is CC licensed, so I think my using it here is at least legal. 
 
 # to make this look like noise as far as frequency is concerned, you'd need a lot of characters: 1691. Luckily, hope is not lost. Removing the four smallest percentages yields a much more doable number: 102. even better, if you add those to the total of the fifth number, it brings the total glyphs needed to a totally reasonable 70. All letters less than v are henceforth v's. 
@@ -30,6 +32,8 @@
 # ["t", 7.33302626913975],
 # ["e", 9.26783371261822]]
 
+characters = "a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 0 1 2 3 4 5 6 7 8 9 @ # $ % ^ & * ( ) ! ; : '".split " "
+
 LETTER_FREQUENCY = {
     "a" => 6.0485080619502,
     "b" => 1.25648849872881,
@@ -61,6 +65,26 @@ LETTER_FREQUENCY = {
 
 require 'pp'
 
+def create_key 
+  #this sets the relationship from the letters to the characters in the font. if you're implementing this, be sure to record it somewhere, like a file, a database, a set of letters for casting type that will be relics of a secret society; you know, somewhere safe. 
+  output = {}
+  characters_copy = characters
+  LETTER_FREQUENCY.each do |letter, number|
+    if letter == "x" || letter == "z" || letter == "q" || letter == "j" || letter == "v" ||
+      unless output["v"]
+        output["v"] = [characters_copy[rand(characters.length)]]
+        characters_copy - output["v"]  
+      end
+    else
+      number.round.times do
+        output[letter] = [] 
+        output[letter] << characters_copy[rand(characters.length)]
+      end
+      characters_copy - output[letter]
+    end
+  end
+end
+
 def encode(plaintext)
   plaintext.split("").map {|pt| "#{glyphs[pt.to_sym]}" rescue nil }.compact.join(" ")  
 end
@@ -87,7 +111,7 @@ pt = File.read("lb.txt")
 total = 0
 
 LETTER_FREQUENCY.each do |key,percent|
- total+=(percent/0.95).to_i
+ total+=(percent/0.95).round
 end
 puts total
 pp LETTER_FREQUENCY.sort {|a,b| a[1] <=> b[1]}
