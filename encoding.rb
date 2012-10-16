@@ -32,7 +32,7 @@
 # ["t", 7.33302626913975],
 # ["e", 9.26783371261822]]
 
-characters = "a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 0 1 2 3 4 5 6 7 8 9 @ # $ % ^ & * ( ) ! ; : '".split " "
+CHARACTERS = "a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 0 1 2 3 4 5 6 7 8 9 @ # $ % ^ & * ( ) ! ; : ' ¶ ❡ ℑ ℊ Œ Æ æ ℞ ß Ʊ Ƹ ƿ Ə".split " "
 
 LETTER_FREQUENCY = {
     "a" => 6.0485080619502,
@@ -68,21 +68,21 @@ require 'pp'
 def create_key 
   #this sets the relationship from the letters to the characters in the font. if you're implementing this, be sure to record it somewhere, like a file, a database, a set of letters for casting type that will be relics of a secret society; you know, somewhere safe. 
   output = {}
-  characters_copy = characters
+  characters_copy = CHARACTERS
   LETTER_FREQUENCY.each do |letter, number|
     if letter == "x" || letter == "z" || letter == "q" || letter == "j" || letter == "v" ||
       unless output["v"]
-        output["v"] = [characters_copy[rand(characters.length)]]
-        characters_copy - output["v"]  
+        output["v"] = [characters_copy[rand(CHARACTERS.length)]]
       end
     else
+      output[letter] = [] 
       number.round.times do
-        output[letter] = [] 
-        output[letter] << characters_copy[rand(characters.length)]
+        output[letter] << characters_copy[rand(CHARACTERS.length)]
       end
-      characters_copy - output[letter]
     end
+    characters_copy - output[letter] if output[letter]
   end
+  return output
 end
 
 def encode(plaintext)
@@ -114,4 +114,9 @@ LETTER_FREQUENCY.each do |key,percent|
  total+=(percent/0.95).round
 end
 puts total
-pp LETTER_FREQUENCY.sort {|a,b| a[1] <=> b[1]}
+
+key = create_key
+#puts key.length
+pp key
+puts CHARACTERS.length
+#pp LETTER_FREQUENCY.sort {|a,b| a[1] <=> b[1]}
