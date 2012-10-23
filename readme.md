@@ -6,10 +6,12 @@ Note that I have no association with Mr. Sloan, other than being a fan. I'm buil
 
 ####todo
  
-dynamic key generation- create optimal letter frequeny for obscurity by analyzing plaintext
+reorganize & refactor methods in module PenumbraEncoding
 
-rewrite the encryption method to use the above ^^  
+write a decryption method that uses a given key
 
-make this work on arbitrary text files
+gemspec & gem creation
 
-do some actual cryptanalysis- periodicity, fourier analysis, whatever I can think of
+release gem
+
+create sinatra app 
