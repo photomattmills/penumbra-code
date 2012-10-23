@@ -6,6 +6,8 @@ Note that I have no association with Mr. Sloan, other than being a fan. I'm buil
 
 ####todo
 
+add some of the salting functions I was thinking about
+
 write some tests to confirm that things are working
  
 reorganize & refactor methods in module PenumbraEncoding
