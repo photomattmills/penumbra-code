@@ -1,5 +1,5 @@
 # encoding: utf-8
-module PenumbraEncoding #even though I hate camelcase    
+class PenumbraEncoding #even though I hate camelcase    
   
   
   # this letter frequency table was generated using lb.txt, wich is the text of cory doctorow's "little brother." I hope he approves of its use for the end of creating a nefarious code. Ideally I'd be using the text of Penumbra, but I don't have a digital copy, and Cory's is CC licensed, so I think my using it here is at least legal. 
@@ -74,12 +74,16 @@ module PenumbraEncoding #even though I hate camelcase
     LETTER_FREQUENCY.each do |letter, number|
       if letter == "x" || letter == "z" || letter == "q" || letter == "j" || letter == "v" ||
         unless output["v"]
-          output["v"] = [characters_copy[rand(CHARACTERS.length)]]
+          new_letter = characters_copy[rand(CHARACTERS.length)]
+          characters_copy - [new_letter]
+          output["v"] = [new_letter]
         end
       else
         output[letter] = [] 
         number.round.times do
-          output[letter] << characters_copy[rand(CHARACTERS.length)]
+          new_letter = characters_copy[rand(CHARACTERS.length)]
+          characters_copy - [new_letter]
+          output[letter] << new_letter
         end
       end
       characters_copy - output[letter] if output[letter]
@@ -92,7 +96,13 @@ module PenumbraEncoding #even though I hate camelcase
     return [cyphertext, key]   
   end
 
-
+  def decode(cyphertext, key)
+    plaintext = []
+    cyphertext.split("").each do |letter|
+      plaintext << key.select{|key, array| array.include? letter}.flatten.first
+    end
+    return plaintext.join " "
+  end
   
   def letter_frequency(text, cyphertext = false)
     length = text.length
@@ -111,21 +121,24 @@ module PenumbraEncoding #even though I hate camelcase
     return percent_hash
   end
   
-  pt = File.read("lb.txt")
-  
-  total = 0
-  
-  LETTER_FREQUENCY.each do |key,percent|
-   total+=(percent/0.95).round
-  end
   
 end
 #
 #puts total
 #
-#key = create_key
+key = PenumbraEncoding.new.create_key
 ##puts key.length
-#pp key
+pp key
+letter = key.select{|key, array| array.include? "n"}.flatten.first
+puts letter.first
 #puts CHARACTERS.length
 ##pp LETTER_FREQUENCY.sort {|a,b| a[1] <=> b[1]}
 #
+#pt = File.read("lb.txt")
+#
+#total = 0
+#
+#LETTER_FREQUENCY.each do |key,percent|
+# total+=(percent/0.95).round
+#end
+  

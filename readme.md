@@ -5,10 +5,10 @@ In the book [Mr Penumbra's 24 Hour Book Store](http://www.robinsloan.com/penumbr
 Note that I have no association with Mr. Sloan, other than being a fan. I'm building this so I can do some cryptanalysis of the cypher; I think that as described in the book it wouldn't take much to break. I feel like 500 years of codebreaking effort would probably crack anything but a one time pad; Almost any cypher that's over 100 years old has already been cracked, sometimes Multiple ways (I'm thinking of vignere, but there are many examples). 
 
 ####todo
+
+write some tests to confirm that things are working
  
 reorganize & refactor methods in module PenumbraEncoding
-
-write a decryption method that uses a given key
 
 gemspec & gem creation
 
